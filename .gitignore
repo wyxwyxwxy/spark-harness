@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# 构建中间产物（APK 本体保留，随仓库分发）
+android/app/build/
+android/.gradle/
+android/local.properties
+*.iml
+.idea/
+
+# 本地配置与密钥
+.env
+*.local.properties

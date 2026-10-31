@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.SparkHarness" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/spark_accent</item>
+        <item name="android:colorBackground">@color/spark_bg</item>
+        <item name="colorSurface">@color/spark_card</item>
+        <item name="android:statusBarColor">@color/spark_bg</item>
+    </style>
+</resources>

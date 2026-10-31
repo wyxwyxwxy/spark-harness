@@ -1,0 +1,6 @@
+name: example-provider
+version: 1.0.0
+description: 演示插件的第五类扩展点——自定义 LLM 厂商。无需 API Key 即可验证插件→Provider 接线。
+author: you
+entry: plugin.py
+tags: [provider, example]

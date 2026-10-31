@@ -1,0 +1,13 @@
+# 核心（必装）
+requests>=2.28
+# Web 服务化（serve 命令）
+flask>=3.0
+# 技能文件（YAML 可选，JSON 自带）
+pyyaml>=6.0
+
+# 可选增强（按需安装，缺失时对应工具优雅降级）：
+# playwright      # browser 工具渲染动态页面：pip install playwright && playwright install chromium
+# pyautogui       # computer 工具驱动鼠标/键盘/截图（Windows/macOS/Linux 通用）
+# beautifulsoup4  # web_search / web_extractor 联网搜索与网页抽取
+# trimesh         # make_3d_model 直接导出 GLB
+# pywin32         # Windows 原生增强（不装也能用 ctypes 回退）

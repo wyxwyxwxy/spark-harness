@@ -1,0 +1,8 @@
+{
+  "name": "android-control",
+  "title": "安卓设备操控",
+  "description": "经 ADB 操控安卓手机：截图、点击、滑动、输入、启动应用、安装 APK。",
+  "tools": ["phone_screenshot", "phone_tap", "phone_swipe", "phone_input_text", "phone_keyevent", "phone_open_app", "phone_install", "phone_list_packages", "phone_screen_size", "phone_shell"],
+  "prompt": "当用户需要操控安卓设备、调试 App、自动化手机操作用本技能的工具。需设备已开启 USB 调试并连接 adb。",
+  "ui": {"panel": "android", "fields": [{"name": "action", "label": "操作", "type": "select", "options": ["screenshot", "tap", "open_app", "install"]}]}
+}

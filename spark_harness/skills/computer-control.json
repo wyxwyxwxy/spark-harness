@@ -1,0 +1,8 @@
+{
+  "name": "computer-control",
+  "title": "电脑 GUI 操控",
+  "description": "操控本机操作系统：鼠标移动/点击/拖拽、键盘输入/组合键、截图、启动应用。",
+  "tools": ["computer_screenshot", "computer_mouse", "computer_keyboard", "computer_open_app", "computer_screen_size"],
+  "prompt": "当用户需要操控本机桌面 GUI、模拟鼠标键盘、截图或启动程序时使用本技能。Windows 下可经 install_windows.ps1 常驻。",
+  "ui": {"panel": "computer", "fields": [{"name": "action", "label": "操作", "type": "select", "options": ["screenshot", "mouse", "keyboard", "open_app"]}]}
+}

@@ -1,0 +1,8 @@
+{
+  "name": "3d-modeling",
+  "title": "3D 模型生成",
+  "description": "生成基础 3D 模型（cube/sphere/torus/cylinder），优先 GLB，否则标准 .obj。",
+  "tools": ["make_3d_model"],
+  "prompt": "当用户需要生成 3D 模型或几何体文件时使用本技能。",
+  "ui": {"panel": "3d", "fields": [{"name": "primitive", "label": "形状", "type": "select", "options": ["cube", "sphere", "torus", "cylinder"]}]}
+}

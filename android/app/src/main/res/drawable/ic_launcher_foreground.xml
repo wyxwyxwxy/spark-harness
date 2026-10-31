@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- 闪电图标（Spark） -->
+    <path android:fillColor="#5B8CFF"
+        android:pathData="M60.5,24 L38,58 L54,58 L47.5,84 L72,48 L56,48 Z"/>
+</vector>

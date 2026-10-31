@@ -1,0 +1,8 @@
+{
+  "name": "dev-tools",
+  "title": "本地开发工具",
+  "description": "本地 shell、文件读写、目录列举、HTTP 请求、Python 代码解释器。",
+  "tools": ["shell", "read_file", "write_file", "list_dir", "http_get", "code_interpreter"],
+  "prompt": "当用户需要执行命令、读写文件、发起 HTTP 请求或运行 Python 代码时使用本技能。",
+  "ui": {"panel": "dev", "fields": [{"name": "command", "label": "命令", "type": "text"}]}
+}

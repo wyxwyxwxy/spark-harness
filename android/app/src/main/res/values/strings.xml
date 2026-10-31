@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Spark Harness</string>
+    <string name="title_settings">连接设置</string>
+    <string name="hint_server_url">服务端地址（如 http://192.168.1.10:8080）</string>
+    <string name="hint_token">访问令牌（可选）</string>
+    <string name="label_autostart">开机自动连接</string>
+    <string name="label_keep_service">保持前台连接服务</string>
+    <string name="btn_save">保存并连接</string>
+    <string name="btn_connect">连接</string>
+    <string name="btn_refresh">刷新</string>
+    <string name="btn_settings">设置</string>
+    <string name="toast_save_first">请先到“设置”填写服务端地址</string>
+    <string name="toast_saved">已保存，正在连接…</string>
+    <string name="toast_connected">已连接 Spark Harness</string>
+    <string name="toast_connect_fail">连接失败：%1$s</string>
+    <string name="notif_channel">Spark Harness 连接</string>
+    <string name="notif_title">Spark Harness 已连接</string>
+    <string name="notif_text">点击打开控制台，由 Agent 调度技能与工具</string>
+</resources>

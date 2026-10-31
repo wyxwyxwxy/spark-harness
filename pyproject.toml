@@ -1,0 +1,23 @@
+[project]
+name = "spark-harness"
+version = "0.1.0"
+description = "对标 Deepseek Harness 的极致上下文 / 缓存 / 工具编排框架，针对 DeepSeek、GLM、Kimi 专门优化"
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.28",
+]
+
+[project.optional-dependencies]
+# 英文 token 计数更准（可选）
+accurate-tokens = ["tiktoken"]
+# 浏览器工具（操控 Web 应用）；装后可渲染动态页面
+browser = ["playwright"]
+# 3D 模型直接导出 GLB（可选，否则导出标准 .obj）
+model3d = ["trimesh"]
+
+[project.scripts]
+spark = "spark_harness.cli:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"

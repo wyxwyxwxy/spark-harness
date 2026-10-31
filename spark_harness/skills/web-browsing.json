@@ -1,0 +1,8 @@
+{
+  "name": "web-browsing",
+  "title": "网页浏览与抓取",
+  "description": "用真实浏览器操控网页、联网搜索、抽取正文。",
+  "tools": ["browser_navigate", "browser_click", "browser_fill", "browser_screenshot", "browser_evaluate", "web_search", "web_extractor"],
+  "prompt": "当用户需要打开网页、点击元素、填写表单、抓取动态内容或联网搜索时使用本技能的工具。",
+  "ui": {"panel": "browser", "fields": [{"name": "url", "label": "网址", "type": "text"}, {"name": "action", "label": "动作", "type": "select", "options": ["navigate", "screenshot", "extract"]}]}
+}

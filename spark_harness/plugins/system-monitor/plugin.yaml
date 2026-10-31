@@ -1,0 +1,6 @@
+name: system-monitor
+version: 1.0.0
+description: 系统监控插件 —— 贡献 system_metrics 工具、技能面板、UI 面板与生命周期钩子，演示"万物皆可插件"。
+author: Spark Team
+entry: plugin.py
+tags: [monitor, system, demo]
