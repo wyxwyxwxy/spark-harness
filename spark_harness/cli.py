@@ -9,6 +9,7 @@
   run       执行单个任务（--task）
   chat      交互式对话
   serve     启动 Web 服务（技能驱动界面）
+  desktop   启动桌面端 GUI（原生窗口嵌入仪表盘）
 
 示例：
   python -m spark_harness demo
@@ -312,6 +313,18 @@ def cmd_chat(args) -> int:
     return 0
 
 
+def cmd_desktop(args) -> int:
+    from .desktop import run_desktop
+    cfg = load_from_env_and_args({"tool_choice": args.tool_choice})
+    if cfg.provider in ("deepseek", "glm", "kimi") and not cfg.api_key:
+        print(f"[warn] 未检测到 {cfg.provider} 的 API Key，桌面端将使用 Mock。")
+        cfg.provider = "mock"; cfg.resolve()
+    pdirs = _default_plugin_dirs(args.plugins_dir)
+    run_desktop(cfg, skills_dir=args.skills_dir, plugin_dirs=pdirs, port=args.port,
+                host=args.host, plugin_watch=args.plugin_watch)
+    return 0
+
+
 def cmd_serve(args) -> int:
     from .server import serve
     cfg = load_from_env_and_args({"tool_choice": args.tool_choice})
@@ -360,6 +373,14 @@ def build_parser() -> argparse.ArgumentParser:
     sv.add_argument("--plugins-dir", action="append", default=None)
     sv.add_argument("--plugin-watch", action="store_true",
                     help="监视插件目录，文件变化自动热重载")
+    dt = sub.add_parser("desktop", help="启动桌面端 GUI（原生窗口嵌入仪表盘）")
+    dt.add_argument("--port", type=int, default=8080)
+    dt.add_argument("--host", default="127.0.0.1")
+    dt.add_argument("--tool-choice", default="auto")
+    dt.add_argument("--skills-dir", default=None)
+    dt.add_argument("--plugins-dir", action="append", default=None)
+    dt.add_argument("--plugin-watch", action="store_true",
+                    help="监视插件目录，文件变化自动热重载")
     return p
 
 
@@ -370,7 +391,7 @@ def main(argv=None) -> int:
         "demo": cmd_demo, "bench": cmd_bench, "compress": cmd_compress,
         "tools": cmd_tools, "skills": cmd_skills, "plugins": cmd_plugins,
         "plugin": cmd_plugin_create, "run": cmd_run,
-        "chat": cmd_chat, "serve": cmd_serve,
+        "chat": cmd_chat, "serve": cmd_serve, "desktop": cmd_desktop,
     }
     if args.cmd == "plugin":
         return handlers["plugin"](args)

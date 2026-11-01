@@ -8,7 +8,10 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import socket
 import sys
+
+import requests
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -330,6 +333,19 @@ def test_plugin_hot_reload():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def test_desktop_boots_server():
+    # 桌面端：后台起 Flask 服务并自检 /api/health（skip_window 不真正开窗口）
+    import socket
+    s = socket.socket(); s.bind(("", 0)); port = s.getsockname()[1]; s.close()
+    from spark_harness.desktop import run_desktop
+    cfg = load_from_env_and_args({"provider": "mock", "tool_choice": "auto"})
+    url = run_desktop(cfg, port=port, skip_window=True)
+    assert url == f"http://127.0.0.1:{port}/", f"URL 应为本地服务: {url}"
+    r = requests.get(f"http://127.0.0.1:{port}/api/health", timeout=5)
+    assert r.status_code == 200 and r.json().get("ok") is True, "桌面端服务健康检查应通过"
+    print("[ok] 桌面端：本地服务就绪且 /api/health 通过")
+
+
 if __name__ == "__main__":
     test_tokenizer()
     test_registry()
@@ -348,4 +364,5 @@ if __name__ == "__main__":
     test_plugin_load_and_integration()
     test_plugin_provider_extension_point()
     test_plugin_hot_reload()
+    test_desktop_boots_server()
     print("\n全部自测通过 ✅")

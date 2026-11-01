@@ -169,6 +169,24 @@ python -m spark_harness serve --plugin-watch
 
 > 本仓库的 Linux 沙箱**无 Android SDK**，APK 未在此预编译。请用 Android Studio 打开 `android/` 目录构建（详见 `android/README.md`）：`Build → Build APK`，或命令行 `./gradlew assembleDebug`（需自备 Android SDK 并配置 `ANDROID_HOME`）。
 
+## 三-H、桌面端 GUI（原生窗口客户端，Windows / macOS / Linux）
+
+把已有的 Web 仪表盘（由技能 + 插件动态生成）用 **pywebview** 嵌入一个**原生桌面窗口**，无需重写任何界面逻辑——技能、插件、动态工具、热重载在桌面端同样可用。
+
+```bash
+pip install "pywebview>=5.0"          # 桌面端依赖
+python -m spark_harness desktop        # 启动桌面 GUI（原生窗口）
+# 或：python desktop_gui.py
+
+# 打包成单文件可执行（EXE / AppImage / DMG）
+./build_desktop.sh                     # 依赖 pip install pyinstaller
+```
+
+- **跨平台内核**：Windows=WebView2，macOS=WKWebView，Linux=WebKit2GTK（`sudo apt install gir1.2-webkit2-4.1 python3-gi`，或改用 Qt 后端 `pip install "pywebview[qt]"`）；
+- **原生菜单**：内置「🔌 热重载插件」「🌐 在浏览器中打开」，与 Web 端热重载一致；
+- **优雅回退**：未装 pywebview 时自动改为「启动本地服务 + 打开系统浏览器」，命令照常可用；
+- **打包**：`desktop/PyInstaller.spec`（已含技能 JSON、插件 YAML 等数据资源，单文件、隐藏控制台）。
+
 ---
 
 ## 四、快速开始

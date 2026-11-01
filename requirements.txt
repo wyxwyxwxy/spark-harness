@@ -1,9 +1,16 @@
 # 核心（必装）
 requests>=2.28
-# Web 服务化（serve 命令）
+# Web 服务化（serve / desktop 命令）
 flask>=3.0
 # 技能文件（YAML 可选，JSON 自带）
 pyyaml>=6.0
+
+# 桌面端 GUI（python -m spark_harness desktop）：原生窗口嵌入仪表盘
+#  - Windows：无需额外系统依赖（WebView2 随系统）
+#  - macOS  ：无需额外系统依赖（WKWebView 随系统）
+#  - Linux  ：需系统 WebKit  —— sudo apt install gir1.2-webkit2-4.1 python3-gi
+#             （或改用 Qt 后端：pip install pywebview[qt] 并装 PyQt5）
+pywebview>=5.0
 
 # 可选增强（按需安装，缺失时对应工具优雅降级）：
 # playwright      # browser 工具渲染动态页面：pip install playwright && playwright install chromium

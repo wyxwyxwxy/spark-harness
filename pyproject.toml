@@ -14,6 +14,8 @@ accurate-tokens = ["tiktoken"]
 browser = ["playwright"]
 # 3D 模型直接导出 GLB（可选，否则导出标准 .obj）
 model3d = ["trimesh"]
+# 桌面端 GUI：原生窗口嵌入仪表盘（python -m spark_harness desktop）
+desktop = ["pywebview>=5.0"]
 
 [project.scripts]
 spark = "spark_harness.cli:main"
