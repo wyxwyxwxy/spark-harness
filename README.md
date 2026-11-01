@@ -187,6 +187,8 @@ python -m spark_harness desktop        # 启动桌面 GUI（原生窗口）
 - **优雅回退**：未装 pywebview 时自动改为「启动本地服务 + 打开系统浏览器」，命令照常可用；
 - **打包**：`desktop/PyInstaller.spec`（已含技能 JSON、插件 YAML 等数据资源，单文件、隐藏控制台）。
 
+**预编译 EXE（无需自己打包）**：Releases 的 **[v4.2.0+](https://github.com/wyxwyxwxy/spark-harness/releases)** 提供已构建的 `SparkHarness.exe`（Windows 原生窗口客户端，单文件、双击即用）。该 EXE 由 `.github/workflows/release.yml` 在打 `v*` tag 时自动用 PyInstaller 在 Windows 上构建并发布，源码与产物完全开源可复现。
+
 ---
 
 ## 四、快速开始
