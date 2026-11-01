@@ -1,0 +1,33 @@
+name: Release (构建 EXE 并发布到 GitHub Release)
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write   # 允许创建/更新 Release 与上传附件
+
+jobs:
+  windows-exe:
+    name: 构建 Windows EXE
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖 + PyInstaller 打包
+        run: |
+          python -m pip install -U pip
+          python -m pip install pyinstaller "pywebview>=5.0" flask pyyaml requests
+          pyinstaller desktop/PyInstaller.spec
+
+      - name: 上传到 Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/SparkHarness.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
