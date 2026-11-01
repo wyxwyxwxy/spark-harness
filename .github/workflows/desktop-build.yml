@@ -1,0 +1,33 @@
+name: Build Desktop (Windows EXE)
+
+on:
+  push:
+    paths:
+      - 'spark_harness/**'
+      - 'desktop_gui.py'
+      - 'desktop/**'
+      - 'requirements.txt'
+      - 'pyproject.toml'
+  workflow_dispatch:
+
+jobs:
+  windows-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖 + 打包
+        run: |
+          python -m pip install -U pip
+          python -m pip install pyinstaller "pywebview>=5.0" flask pyyaml requests
+          pyinstaller desktop/PyInstaller.spec
+
+      - name: 上传 EXE 工件
+        uses: actions/upload-artifact@v4
+        with:
+          name: SparkHarness-Windows-exe
+          path: dist/SparkHarness.exe
