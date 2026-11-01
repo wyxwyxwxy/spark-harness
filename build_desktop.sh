@@ -19,14 +19,8 @@ if [[ "${1:-}" == "--onedir" ]]; then ONE_FILE="--onedir"; fi
 echo "==> 安装/确认构建依赖"
 python3 -m pip install --quiet pyinstaller "pywebview>=5.0" flask pyyaml requests || true
 
-echo "==> 运行 PyInstaller（单文件 GUI，隐藏控制台）"
-pyinstaller $ONE_FILE --noconsole --name SparkHarness --clean \
-  --hidden-import spark_harness.desktop \
-  --hidden-import spark_harness.server \
-  --hidden-import spark_harness.providers \
-  --add-data "spark_harness/skills:spark_harness/skills" \
-  --add-data "spark_harness/plugins:spark_harness/plugins" \
-  desktop_gui.py
+echo "==> 运行 PyInstaller（单文件 GUI，隐藏控制台；资源由 desktop/PyInstaller.spec 统一管理）"
+pyinstaller $ONE_FILE --noconsole --clean desktop/PyInstaller.spec
 
 echo "==> 完成。产物位于 dist/SparkHarness"
 ls -lh dist/SparkHarness* 2>/dev/null || ls -lh dist/
