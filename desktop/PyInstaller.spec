@@ -1,26 +1,37 @@
 # -*- mode: python ; coding: utf-8 -*-
-"""PyInstaller 规格：把 Spark Harness 桌面端打包成单文件可执行（EXE/AppImage/DMG）。
+"""PyInstaller 规格：把 Spark Harness 桌面端打包成单文件可执行（Windows EXE / AppImage / DMG）。
+
+PyInstaller 会把 Analysis 的脚本路径按"本规格文件所在目录"解析，因此这里统一用
+SPECPATH 推导出仓库根目录（ROOT），避免从 desktop/ 子目录找文件出错。
 
 用法：
-  pip install pyinstaller
-  pyinstaller desktop/PyInstaller.spec
-  # 产物：dist/SparkHarness(.exe)
+  pip install pyinstaller pywebview
+  pyinstaller desktop/PyInstaller.spec          # 产物：dist/SparkHarness(.exe)
 
-提示：
   - Windows 无需额外系统依赖（WebView2 已随系统）。
-  - Linux 需先：sudo apt install gir1.2-webkit2-4.1 python3-gi
-  - macOS  无需额外系统依赖（WKWebView 已随系统）。
+  - Linux  ：需先 sudo apt install gir1.2-webkit2-4.1 python3-gi
+  - macOS  ：无需额外系统依赖（WKWebView 已随系统）。
 """
-from PyInstaller.utils.hooks import collect_data_files
+import os
 
 block_cipher = None
+ROOT = os.path.dirname(SPECPATH)  # 仓库根目录（desktop/ 的父级）
 
-# 打包 spark_harness 包下所有数据（技能 JSON / 插件 YAML / py）
-datas = collect_data_files("spark_harness", include_py_files=True)
+# 显式收集 spark_harness 下的数据资源（技能 JSON / 插件 YAML 等）
+datas = []
+for sub in ("skills", "plugins"):
+    base = os.path.join(ROOT, "spark_harness", sub)
+    if not os.path.isdir(base):
+        continue
+    for _root, _dirs, files in os.walk(base):
+        for _f in files:
+            src = os.path.join(_root, _f)
+            rel = os.path.relpath(src, ROOT)
+            datas.append((src, os.path.dirname(rel)))
 
 a = Analysis(
-    ["desktop_gui.py"],
-    pathex=[],
+    [os.path.join(ROOT, "desktop_gui.py")],
+    pathex=[ROOT],
     binaries=[],
     datas=datas,
     hiddenimports=[
@@ -58,7 +69,7 @@ exe = EXE(
     strip=False,
     upx=True,
     runtime_tmpdir=None,
-    console=False,           # 桌面端隐藏控制台窗口
+    console=False,  # 桌面端隐藏控制台窗口
     disable_windowed_traceback=False,
     target_arch=None,
     codesign_identity=None,
